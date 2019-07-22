@@ -16,25 +16,47 @@ function HashStorage() { // конструктор класса HashStorage
                   delete this.storage[key]; 
             }
                
-            this.getKeys=function() {
-                    return this.Object.keys(storage);
+            this.getKeys=function(storage) {
+                    return Object.keys(storage);
             }
 
 }
 
 var drinkStorage = new HashStorage();
     
- function addDrink(key,value) {
-        var key = prompt('Введите название напитка');
-        var value;
-        var yes = 'да';
-        var no = 'нет';
-        var alc = confirm('Он алкогольный? Если да нажмите Ок');
-            if ( alc )
-                    value = yes;
-            else
-                    value = no;
-    }
-function getDrink(){
+function addDrink(key,value) {
+    var key = prompt('Введите название напитка');
+    var value;
+    var yes = 'да';
+    var no = 'нет';
+    var alc = confirm('Он алкогольный? Если да нажмите Ок');
+        if ( alc )
+                value = yes;
+        else
+                value = no;
+    drinkStorage.addValue(key,value);
+}
+
+function getDrink() {
+    var nameDrink = prompt('Введите название напитка');
+    if (nameDrink in drinkStorage.storage) 
+        alert('напиток:' + nameDrink + '\n' + 'алкогольный:' + drinkStorage.getValue(nameDrink) + '\n');
+    else 
+        alert('Такого напитка нет');
     
+}
+
+function delDrink() {
+    var nameDrink = prompt('Введите название напитка');
+    if (nameDrink in drinkStorage.storage) {
+        drinkStorage.deleteValue(nameDrink);
+        alert('Напиток ' + nameDrink + ' удален');
+    }
+    else {
+        alert('Такого напитка нет');
+    }
+}
+
+function listDrink() {
+    alert(drinkStorage.getKeys(drinkStorage.storage));
 }
