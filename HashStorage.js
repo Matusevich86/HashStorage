@@ -13,7 +13,7 @@ function HashStorage() { // конструктор класса HashStorage
             }
                
             this.deleteValue=function(key) {
-                  delete this.storage[key]; 
+                  return delete this.storage[key]; 
             }
                
             this.getKeys=function(storage) {
@@ -26,35 +26,37 @@ var drinkStorage = new HashStorage();
     
 function addDrink(key,value) {
     var key = prompt('Введите название напитка');
-    var value;
-    var yes = 'да';
-    var no = 'нет';
+    var value = {};
     var alc = confirm('Он алкогольный? Если да нажмите Ок');
         if ( alc )
-                value = yes;
+                value.alc = 'да';
         else
-                value = no;
+                value.alc = 'нет';
+    value.recept = prompt('Введите рецепт напитка');
     drinkStorage.addValue(key,value);
+    console.log(drinkStorage)
 }
 
 function getDrink() {
     var nameDrink = prompt('Введите название напитка');
-    if (nameDrink in drinkStorage.storage) 
-        alert('напиток:' + nameDrink + '\n' + 'алкогольный:' + drinkStorage.getValue(nameDrink) + '\n');
-    else 
+    if (drinkStorage.getValue(nameDrink)) {
+        alert('напиток:' + nameDrink + '\n' + 'алкогольный:' + drinkStorage.getValue(nameDrink).alc + '\n' + 'Рецепт:' + drinkStorage.getValue(nameDrink).recept);
+    } else {
         alert('Такого напитка нет');
+    }
     
 }
 
 function delDrink() {
     var nameDrink = prompt('Введите название напитка');
-    if (nameDrink in drinkStorage.storage) {
-        drinkStorage.deleteValue(nameDrink);
-        alert('Напиток ' + nameDrink + ' удален');
-    }
-    else {
-        alert('Такого напитка нет');
-    }
+    drinkStorage.deleteValue(nameDrink);
+    console.log(drinkStorage.deleteValue(nameDrink));
+//    if (deleteValue(nameDrink)) {
+//        alert('Напиток ' + nameDrink + ' удален');
+//    }
+//    else {
+//        alert('Такого напитка нет');
+//    }
 }
 
 function listDrink() {
