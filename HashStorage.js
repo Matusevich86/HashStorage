@@ -1,7 +1,7 @@
     "use strict";
 
 function HashStorage() { // конструктор класса HashStorage
-
+            
             this.storage={}; // хэш, в котором хранилище будет сохранять всё что нужно
 
             this.addValue=function(key,value) {
@@ -12,8 +12,14 @@ function HashStorage() { // конструктор класса HashStorage
                  return this.storage[key];
             }
                
-            this.deleteValue=function(key) {
-                  return delete this.storage[key]; 
+            this.deleteValue=function(key) {  
+                if (key in this.storage) {
+                    delete this.storage[key];
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
                
             this.getKeys=function(storage) {
@@ -39,25 +45,22 @@ function addDrink(key,value) {
 
 function getDrink() {
     var nameDrink = prompt('Введите название напитка');
-    if (drinkStorage.getValue(nameDrink)) {
-        alert('напиток:' + nameDrink + '\n' + 'алкогольный:' + drinkStorage.getValue(nameDrink).alc + '\n' + 'Рецепт:' + drinkStorage.getValue(nameDrink).recept);
+    var drinkValue = drinkStorage.getValue(nameDrink);
+    if (drinkValue) {
+        alert('напиток:' + nameDrink + '\n' + 'алкогольный:' + drinkValue.alc + '\n' + 'Рецепт:' + drinkValue.recept);
     } else {
         alert('Такого напитка нет');
-    }
-    console.log(drinkStorage.getValue(nameDrink));
-    
+    }    
 }
 
 function delDrink() {
     var nameDrink = prompt('Введите название напитка');
-    drinkStorage.deleteValue(nameDrink);
-    console.log(drinkStorage.deleteValue(nameDrink));
-//    if (deleteValue(nameDrink)) {
-//        alert('Напиток ' + nameDrink + ' удален');
-//    }
-//    else {
-//        alert('Такого напитка нет');
-//    }
+    if (drinkStorage.deleteValue(nameDrink) == true) { 
+        alert('Напиток ' + nameDrink + ' удален');
+    }
+    else {
+        alert('Такого напитка нет');
+    }
 }
 
 function listDrink() {
