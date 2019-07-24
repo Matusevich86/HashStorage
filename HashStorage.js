@@ -44,6 +44,7 @@ function getDrink() {
     } else {
         alert('Такого напитка нет');
     }
+    console.log(drinkStorage.getValue(nameDrink));
     
 }
 
@@ -60,5 +61,5 @@ function delDrink() {
 }
 
 function listDrink() {
-    alert(drinkStorage.getKeys(drinkStorage.storage));
+    console.log(drinkStorage.getKeys(drinkStorage.storage));
 }
