@@ -1,0 +1,38 @@
+label {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 10px;
+}
+form {
+    margin-top: 10px;
+    border-top: solid black 1px;
+    padding: 5px;
+}
+textarea {
+    width: 400px;
+    margin-top: -10px;
+}
+input.text {
+    width: 220px;
+}
+.error {
+    color: red;
+    position: absolute;
+    left: 320px;
+    top: 0px;
+}
+.pr {
+    position: relative;
+}
+.error1 {
+    color: red;
+    position: absolute;
+    left: 400px;
+    top: 0px;
+}
+.error2 {
+    color: red;
+    position: relative;
+    left: 320px;
+    top: 0px;
+}

@@ -1,0 +1,63 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>DYN_FORM</title>
+    <link rel="stylesheet" href="dyn_form.css">
+</head>
+<body>
+
+<form action="http://fe.it-academy.by/TestForm.php" name='info' novalidate>
+<div class="pr">
+    <label>Разработчики:</label><input type="text" name="sitebuilders" class="field">
+    <div id="errRaz" class="error"></div>
+</div>
+<div class="pr">
+    <label>Название сайта:</label><input type="text" name="sitename" class="field">
+    <div id="errName" class="error"></div>
+</div>
+<div class="pr">
+    <label>URL сайта:</label><input type="text" name="siteurl" class="field">
+    <div id="errUrl" class="error"></div>
+</div>
+<div class="pr">
+    <label>Дата запуска сайта:</label><input type="text" name="sitedate" class="field">
+    <div id="errDate" class="error"></div>
+</div>
+<div class="pr">
+    <label>Посетителей в сутки:</label><input type="text" name="visitors" class="field">
+    <div id="errVis" class="error"></div>
+</div>
+<div class="pr">
+    <label>E-mail для связи:</label><input type="text" name="email" class="field">
+    <div id="errEmail" class="error"></div>
+</div>
+<div class="pr">
+    <label>Рубрика каталога:</label>
+       <select name="division" class="field">
+        <option value=11>нет рубрики</option>
+        <option value=22>домашний уют</option>
+        <option value=33>бытовая техника</option>
+   </select>
+   <div id="errDiv" class="error"></div>
+</div>
+<div class="pr">
+    <label>Размещение:</label>
+        <input name="payment" type="radio" value=1><span>бесплатное</span>
+        <input name="payment" type="radio" value=2><span>платное</span>
+        <input name="payment" type="radio" value=3><span>VIP</span>
+        <div id="errPay" class="error1"></div>
+</div>
+<div class="pr">
+    <label>Разрешить отзывы:</label><input type="checkbox" name="comments">
+    <div id="errCom" class="error"></div>
+</div>
+<div class="pr">
+    <label>Описание сайта:</label><textarea name="discription" class="field"></textarea>
+    <div id="errDiscr" class="error2"></div>
+</div>
+
+<input type="submit" name='submit' value="Опубликовать:" >
+</form>
+
+<script src="valid_form.js"></script>
+
+</body></html>
