@@ -138,7 +138,7 @@ function validSitePay(tofocus){
         valid = false;
         var error = document.getElementById('errPay');
         error.innerHTML = 'Не выбран способ оплаты';
-        if(tofocus){sitePayfield.onchange()};
+        document.getElementById('pay').scrollIntoView();
     }else{
         var error = document.getElementById('errPay');
         error.innerHTML = '';
