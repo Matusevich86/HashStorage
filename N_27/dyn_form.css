@@ -36,3 +36,6 @@ input.text {
     left: 320px;
     top: 0px;
 }
+#pay {
+    display: inline-block;
+}

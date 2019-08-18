@@ -8,7 +8,7 @@ var email = frm.elements.email;
 var visitors = frm.elements.visitors;
 var sitedate = frm.elements.sitedate;
 var division = frm.elements.division;
-var payment = frm.elements.payment;
+var payment = document.getElementById('pay');
 var comments = frm.elements.comments;
 var discription = frm.elements.discription;
 
@@ -132,6 +132,7 @@ function validSiteDivis(tofocus){
 function validSitePay(tofocus){
     let valid = true;
     let sitePayfield = frm.elements.payment;
+    console.log(sitePayfield);
     let sitePayfieldValue = sitePayfield.value;
     if(sitePayfieldValue == ""){
         valid = false;
