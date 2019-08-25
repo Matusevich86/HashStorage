@@ -1,16 +1,14 @@
 "use strict";
 
 
-var elems=document.getElementsByTagName("IMG");
-for ( var i = elems.length - 1; i >= 0; --i ) {
+var elems=document.getElementsByTagName("IMG"); //находим все картинки на странице
+for ( var i = elems.length - 1; i >= 0; --i ) { //проходим циклом с конца
   var moveImg = elems[i];
   var posX = moveImg.offsetTop;
-  var posY = moveImg.offsetLeft;
+  var posY = moveImg.offsetLeft; //вычисляем координаты картинок
   moveImg.style.position='absolute';
   moveImg.style.top=posX + 'px';
-  moveImg.style.left=posY + 'px';  
-    console.log(moveImg);
-    
+  moveImg.style.left=posY + 'px'; //позиционируем абсолютно   
 }
 
 
@@ -21,43 +19,37 @@ onmousedown = function(EO) {
   moveImg = EO.target; 
     
   var coords = getCoords(moveImg);
-  var shiftX = EO.pageX - coords.left;
+  var shiftX = EO.pageX - coords.left; //смещение курсора мыши
   var shiftY = EO.pageY - coords.top;
 
-  moveImg.style.position = 'absolute';
-  document.body.appendChild(moveImg);
-  moveAt(EO);
+  document.body.appendChild(moveImg); //распологаем перемещаемую картинку над остальными
+  moveAt(moveImg);
 
-  moveImg.style.zIndex = 1000; // над другими элементами
-
-  function moveAt(e) {
+  function moveAt(e) { // передвинуть мяч под координаты курсора
+                       // и сдвинуть на половину ширины/высоты для центрировани
     moveImg.style.left = e.pageX - shiftX + 'px';
     moveImg.style.top = e.pageY - shiftY + 'px';
   }
 
-  document.onmousemove = function(EO) {
+  document.onmousemove = function(EO) { //перемещать по экрану
     moveAt(EO);
   };
 
-  moveImg.onmouseup = function() {
+  moveImg.onmouseup = function() { //заканчиваем перенос
     document.onmousemove = null;
-    EO.onmouseup = null;
+    moveImg.onmouseup = null;
   };
-
+    
+    moveImg.ondragstart = function() { //отменяем dragstart
+      return false;
+    };
 }
 
-moveImg.ondragstart = function() {
-  return false;
-};
-
-
-
-
-function getCoords(EO) {   // кроме IE8-
-  var box = EO.getBoundingClientRect();
+function getCoords(e) {   // кроме IE8- узнаём положение каринки относительно страницы
+  var coordsClickImg = e.getBoundingClientRect();
   return {
-    top: box.top + pageYOffset,
-    left: box.left + pageXOffset
+    top: coordsClickImg.top + pageYOffset,
+    left: coordsClickImg.left + pageXOffset
   };
 
 }
