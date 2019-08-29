@@ -75,7 +75,6 @@ window.setInterval(
 		var time = document.getElementById("time");
         time.innerHTML = d.toLocaleTimeString();
         time.style.fontSize=NUMERAL_CLOCK +'px';
-        time.style.top=RADIUS_CLOCK/2 +'px';
-        var widthTime = document.getElementById('time').offsetWidth;
-        time.style.left=RADIUS_CLOCK-widthTime/2 +'px';
+        time.style.paddingTop=RADIUS_CLOCK/2 +'px';
+
 });100;
