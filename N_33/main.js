@@ -25,6 +25,7 @@ for ( var h=1; h<=12; h++ ) { // отображаемый час
     numeralDiv.style.lineHeight=NUMERAL_CLOCK+'px';
     numeralDiv.textContent=h;
     numeralDiv.className='numeral';
+    numeralDiv.style.fontSize=NUMERAL_CLOCK/2+'px';
     circle.appendChild(numeralDiv);
 }
 
@@ -58,7 +59,10 @@ updateArrows(); // обновляем стрелки при открытии с�
   hourArrow.style.left=RADIUS_CLOCK+'px';
   hourArrow.style.transform='rotate('+t_hour+'deg)';
     
-  
+  var time = document.getElementById("time");
+        time.innerHTML = currTime.toLocaleTimeString();
+        time.style.fontSize=NUMERAL_CLOCK +'px';
+        time.style.paddingTop=RADIUS_CLOCK/2 +'px';
 
   // обновляем стрелки согласно currTime
 
@@ -69,12 +73,3 @@ updateArrows(); // обновляем стрелки при открытии с�
   }
 
 
-window.setInterval(
-	function time(){
-		var d = new Date();
-		var time = document.getElementById("time");
-        time.innerHTML = d.toLocaleTimeString();
-        time.style.fontSize=NUMERAL_CLOCK +'px';
-        time.style.paddingTop=RADIUS_CLOCK/2 +'px';
-
-});100;
