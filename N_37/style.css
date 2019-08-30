@@ -1,0 +1,7 @@
+#clock,
+#container {
+    display: inline-flex;
+}
+#time {
+    font: italic 30px sans-serif;
+}
