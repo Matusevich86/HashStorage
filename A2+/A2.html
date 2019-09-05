@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A2+</title>
+</head>
+<body>
+    <script>
+        "use strict"
+       var  string= '       www     ';
+        
+        function myTrim (str) {
+            
+            var space = ' ';
+            for (var i = 0; i < str.length; i++) { //проходим с начала строки
+                if (space.indexOf(str.charAt(i)) === -1) { //определяем есть ли пробелы и сколько
+                    str = str.substring(i); //обрезаем строку если пробелы есть
+                    break;
+                }
+            }
+            for (i = str.length - 1; i >= 0; i--) { // то же самое только с конца строки
+                if (space.indexOf(str.charAt(i)) === -1) {
+                    str = str.substring(0, i + 1);
+                    break;
+                }
+            }
+            return space.indexOf(str.charAt(0)) === -1 ? str : '';
+        }
+        console.log('*'+myTrim (string)+'*');
+        
+    </script>
+</body>
+</html>
