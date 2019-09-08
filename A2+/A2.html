@@ -7,24 +7,27 @@
 <body>
     <script>
         "use strict"
-       var  string= '       www     ';
+       var  string= '         gggg     ';
         
         function myTrim (str) {
             
             var space = ' ';
             for (var i = 0; i < str.length; i++) { //проходим с начала строки
-                if (space.indexOf(str.charAt(i)) === -1) { //определяем есть ли пробелы и сколько
-                    str = str.substring(i); //обрезаем строку если пробелы есть
+                if (str.charAt(i) == space) {//определяем есть ли пробелы и сколько
+                    continue;
+                }else{
                     break;
                 }
             }
-            for (i = str.length - 1; i >= 0; i--) { // то же самое только с конца строки
-                if (space.indexOf(str.charAt(i)) === -1) {
-                    str = str.substring(0, i + 1);
+            for ( var s = str.length - 1; s >= 0; s--) { // то же самое только с конца строки
+                if (str.charAt(s) == space) {    
+                    continue;
+                }else{
                     break;
                 }
             }
-            return space.indexOf(str.charAt(0)) === -1 ? str : '';
+            str = str.substring(i, s + 1);
+            return str;
         }
         console.log('*'+myTrim (string)+'*');
         
