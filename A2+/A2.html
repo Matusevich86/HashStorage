@@ -7,10 +7,10 @@
 <body>
     <script>
         "use strict"
-       var  string= '         gggg     ';
+       var  string= '                  ';
         
         function myTrim (str) {
-            
+            var q=string.length-1;
             var space = ' ';
             for (var i = 0; i < str.length; i++) { //проходим с начала строки
                 if (str.charAt(i) == space) {//определяем есть ли пробелы и сколько
@@ -19,15 +19,26 @@
                     break;
                 }
             }
+            if (string.length == i){
+                str = '';
+                return str;
+            }else{
             for ( var s = str.length - 1; s >= 0; s--) { // то же самое только с конца строки
                 if (str.charAt(s) == space) {    
                     continue;
-                }else{
-                    break;
+                    }else{
+                        break;
+                    }
                 }
             }
-            str = str.substring(i, s + 1);
-            return str;
+            if(i==0 && s==q){
+                return str;
+            }else{
+               str = str.substring(i, s + 1);
+               return str; 
+            }
+            
+            
         }
         console.log('*'+myTrim (string)+'*');
         
