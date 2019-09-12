@@ -6,11 +6,10 @@
 </head>
 <body>
     <script>
-        "use strict"
-        function trimString(){    
-          var  string= '      tt            ';
+        "use strict"  
+          var  str= prompt('enter text');
             function myTrim (str) {
-                var q=string.length-1;
+                var q=str.length-1;
                 var space = ' ';
                 for (var i = 0; i < str.length; i++) { //проходим с начала строки
                     if (str.charAt(i) == space) {//определяем есть ли пробелы и сколько
@@ -19,7 +18,7 @@
                         break;
                     }
                 }
-                if (string.length == i){
+                if (str.length == i){
                     str = '';
                     return str;
                 }else{
@@ -40,8 +39,7 @@
 
 
             }
-            console.log('*'+myTrim (string)+'*');      
-        }trimString();
+            console.log('*'+myTrim (str)+'*');      
        
     </script>
 </body>
