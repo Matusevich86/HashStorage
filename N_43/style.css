@@ -1,0 +1,21 @@
+#gameField {
+    border: solid 1px;
+    background-color: yellow;
+    position: relative;
+}
+
+#leftRacket {
+    background-color: chartreuse;
+    position: absolute;
+}
+
+#rightRacket {
+    background-color: cornflowerblue;
+    position: absolute
+}
+
+#ball {
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+}
