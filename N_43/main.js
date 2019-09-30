@@ -86,6 +86,31 @@ document.addEventListener('keyup', function(event) {
     }    
 });
 
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 40) {
+        event.preventDefault();
+        rightRacket.speedY=2;
+    } 
+});
+document.addEventListener('keyup', function(event) {
+    if(event.keyCode == 40) {
+        event.preventDefault();
+        rightRacket.speedY=0;
+    }    
+});   
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 38) {
+        event.preventDefault();
+        rightRacket.speedY=-2;
+    }  
+}); 
+document.addEventListener('keyup', function(event) {
+    if(event.keyCode == 38) {
+        event.preventDefault();
+        rightRacket.speedY=0;
+    }    
+});
+
 tick(); 
 
 function tick() { 
@@ -99,6 +124,17 @@ function tick() {
     if ( leftRacket.posY+leftRacket.height>areaH.height ) {
         leftRacket.speedY=0;
         leftRacket.posY=areaH.height-leftRacket.height;
+    }
+    
+    rightRacket.posY+=rightRacket.speedY;
+
+    if (rightRacket.posY < 0) {
+        rightRacket.speedY=0;
+        rightRacket.posY=0;
+    }
+    if (rightRacket.posY+rightRacket.height>areaH.height) {
+        rightRacket.speedY=0;
+        rightRacket.posY=areaH.height-rightRacket.height;
     }
     
     leftRacket.update();
