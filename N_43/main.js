@@ -10,11 +10,10 @@ gameField.style.width = fieldWidth + 'px';
 gameField.style.height = fieldHeight + 'px';
 
 
-//window.addEventListener("keypress",inputKey);
 
  var leftRacket={
         posX : 0,
-        posY : 0,
+        posY : 20,
         speedY : 1,
         width : rocketWidth,
         height: rocketHeight,
@@ -64,71 +63,66 @@ var rightRacket={
         width : fieldWidth,
         height : fieldHeight
     }
-  
+ 
+tick(); 
 
-  
-     function upScr() {
+function tick() { 
 
-        leftRacket.posY+=leftRacket.speedY;
-        // вылетел ли мяч ниже поля?
-        if ( leftRacket.posY+leftRacket.height>areaH.height ) {
-            leftRacket.speedY=0;
-        }
-        leftRacket.update();  
-        requestAnimationFrame(upScr);
-    }
-
-   function downScr() {
-
-        leftRacket.posY-=leftRacket.speedY;
-           //вылетел ли мяч выше поля?
-        if ( leftRacket.posY<0 ) {
-            leftRacket.speedY=0;
-            
-        }
-        leftRacket.update();  
-        requestAnimationFrame(downScr);
-    }
-  
+       
     document.addEventListener('keydown', function(event) {
     if(event.keyCode == 17) {
         event.preventDefault();
-        requestAnimationFrame(upScr);
-    }
-    
-});
-  
+        moveDown();
+        console.log('17down');
+        } 
+    });
+    document.addEventListener('keyup', function(event) {
+    if(event.keyCode == 17) {
+        moveStop();
+        console.log('17up');  
+        }    
+    });   
     document.addEventListener('keydown', function(event) {
     if(event.keyCode == 16) {
         event.preventDefault();
-        requestAnimationFrame(downScr);
+        moveUp();
+        console.log('16down');
+        }  
+    });
+    document.addEventListener('keyup', function(event) {
+    if(event.keyCode == 16) {
+        moveStop();
+        console.log('16up');
+        }    
+    });
+  
+    function moveUp(){
+        leftRacket.posY-=leftRacket.speedY;
+        if ( leftRacket.posY<0 ) {
+        leftRacket.speedY=0;
+        }
+      }  
+     function moveDown(){
+         leftRacket.posY+=leftRacket.speedY;
+         if ( leftRacket.posY+leftRacket.height>areaH.height ) {
+         leftRacket.speedY=0;
+        }
+     }
+          
+      
+     function moveStop(){
+        leftRacket.speedY=0;
     }
-    
-});   
-  
-  
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    leftRacket.update();
+    rightRacket.update();
+    ball.update();
+
+        requestAnimationFrame(tick);
+    
+    }
+
 leftRacket.update();
 rightRacket.update();
 ball.update();
-
-
-  function playGame() {
-  
-
-  
-  setTimeout(updateArrows,1020-currTime.getMilliseconds());   
-    
-  
-  }
-
 
