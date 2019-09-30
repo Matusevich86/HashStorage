@@ -94,11 +94,13 @@ function tick() {
 
     if (leftRacket.posY < 0) {
         leftRacket.speedY=0;
+        leftRacket.posY=0;
     }
-    else if ( leftRacket.posY+leftRacket.height>areaH.height ) {
+    if ( leftRacket.posY+leftRacket.height>areaH.height ) {
         leftRacket.speedY=0;
+        leftRacket.posY=areaH.height-leftRacket.height;
     }
-     
+    
     leftRacket.update();
     rightRacket.update();
     ball.update();
