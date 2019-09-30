@@ -92,7 +92,7 @@ function tick() {
 
     leftRacket.posY+=leftRacket.speedY;
 
-    if (leftRacket.posY > 0) {
+    if (leftRacket.posY < 0) {
         leftRacket.speedY=0;
     }
     else if ( leftRacket.posY+leftRacket.height>areaH.height ) {
