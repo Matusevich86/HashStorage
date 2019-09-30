@@ -62,25 +62,25 @@ var areaH={
 }
  
 document.addEventListener('keydown', function(event) {
-    if(event.ctrlKey) {
+    if(event.keyCode == 17) {
         event.preventDefault();
         leftRacket.speedY=2;
     } 
 });
 document.addEventListener('keyup', function(event) {
-    if(event.ctrlKey) {
+    if(event.keyCode == 17) {
         event.preventDefault();
         leftRacket.speedY=0;
     }    
 });   
 document.addEventListener('keydown', function(event) {
-    if(event.code == 'ShiftLeft') {
+    if(event.keyCode == 16) {
         event.preventDefault();
         leftRacket.speedY=-2;
     }  
 }); 
 document.addEventListener('keyup', function(event) {
-    if(event.code == 'ShiftLeft') {
+    if(event.keyCode == 16) {
         event.preventDefault();
         leftRacket.speedY=0;
     }    
