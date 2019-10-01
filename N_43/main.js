@@ -66,19 +66,27 @@ var areaH={
 document.addEventListener('keydown', function(event) {
     if(event.keyCode == 17) {
         event.preventDefault();
-        leftRacket.speedY=2;
+        if(gameState == 2) {
+            leftRacket.speedY=2;
+        }  
     }
     if(event.keyCode == 16) {
         event.preventDefault();
-        leftRacket.speedY=-2;
+        if(gameState == 2) {
+            leftRacket.speedY=-2;
+        }
     }
     if(event.keyCode == 40) {
         event.preventDefault();
-        rightRacket.speedY=2;
+        if(gameState == 2) {
+            rightRacket.speedY=2;
+        }
     }
     if(event.keyCode == 38) {
         event.preventDefault();
-        rightRacket.speedY=-2;
+        if(gameState == 2) {
+            rightRacket.speedY=-2;
+        }
     }
 });
 document.addEventListener('keyup', function(event) {
@@ -101,11 +109,18 @@ document.addEventListener('keyup', function(event) {
 });
 
 function start() {
+    if(gameState == 2) {
+        event.preventDefault();
+    }
+    if(gameState == 1 || gameState == 3) {
+        ball.posX = fieldWidth/2 - ballWidth/2;
+        ball.posY = fieldHeight/2 - ballWidth/2;
         ball.speedX = 2;
         ball.speedY = 1;
-}
-
-tick(); 
+        gameState = 2;
+    }   
+        requestAnimationFrame(tick);
+} 
 
 function tick() { 
 
@@ -115,7 +130,7 @@ function tick() {
         leftRacket.speedY=0;
         leftRacket.posY=0;
     }
-    if ( leftRacket.posY+leftRacket.height>areaH.height ) {
+    if (leftRacket.posY+leftRacket.height>areaH.height) {
         leftRacket.speedY=0;
         leftRacket.posY=areaH.height-leftRacket.height;
     }
@@ -137,10 +152,12 @@ function tick() {
         ball.speedX=-ball.speedX;
     }
     // вылетел ли мяч правее стены?
-    if ( ball.posX+ball.width>areaH.width ) {
+    if (ball.posX+ball.width>areaH.width) {
         ball.speedX=0;
         ball.speedY=0;
         ball.posX=areaH.width-ball.width;
+        gameState=3;
+        rightRacket.speedY=0;
     }
     // ударился ли мячь об левую ракетку
     if (ball.posY>=leftRacket.posY && ball.posY<=leftRacket.posY+leftRacket.height-ball.radius && ball.posX<=leftRacket.width ) {
@@ -151,6 +168,8 @@ function tick() {
         ball.speedX=0;
         ball.speedY=0;
         ball.posX=0;
+        gameState=3;
+        leftRacket.speedY=0;
     }
 
     ball.posY+=ball.speedY;
