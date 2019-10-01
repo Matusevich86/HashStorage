@@ -5,6 +5,7 @@ const fieldHeight = 245;
 const rocketWidth = 7;
 const rocketHeight = 73;
 const ballWidth = 23;
+var gameState = 1;
 
 var gameField = document.getElementById('gameField');
 gameField.style.width = fieldWidth + 'px';
@@ -43,10 +44,11 @@ var rightRacket={
 var ball={
     posX : fieldWidth/2 - ballWidth/2,
     posY : fieldHeight/2 - ballWidth/2,
-    speedX : 1,
-    speedY : 1,
+    speedX : 0,
+    speedY : 0,
     width : ballWidth,
     height: ballWidth,
+    radius: ballWidth/2,
 
     update : function() {
         var ballElem=document.getElementById('ball');
@@ -65,51 +67,43 @@ document.addEventListener('keydown', function(event) {
     if(event.keyCode == 17) {
         event.preventDefault();
         leftRacket.speedY=2;
-    } 
+    }
+    if(event.keyCode == 16) {
+        event.preventDefault();
+        leftRacket.speedY=-2;
+    }
+    if(event.keyCode == 40) {
+        event.preventDefault();
+        rightRacket.speedY=2;
+    }
+    if(event.keyCode == 38) {
+        event.preventDefault();
+        rightRacket.speedY=-2;
+    }
 });
 document.addEventListener('keyup', function(event) {
     if(event.keyCode == 17) {
         event.preventDefault();
         leftRacket.speedY=0;
-    }    
-});   
-document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 16) {
-        event.preventDefault();
-        leftRacket.speedY=-2;
-    }  
-}); 
-document.addEventListener('keyup', function(event) {
+    }
     if(event.keyCode == 16) {
         event.preventDefault();
         leftRacket.speedY=0;
-    }    
+    }
+    if(event.keyCode == 40) {
+        event.preventDefault();
+        rightRacket.speedY=0;
+    }
+    if(event.keyCode == 38) {
+        event.preventDefault();
+        rightRacket.speedY=0;
+    }
 });
 
-document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 40) {
-        event.preventDefault();
-        rightRacket.speedY=2;
-    } 
-});
-document.addEventListener('keyup', function(event) {
-    if(event.keyCode == 40) {
-        event.preventDefault();
-        rightRacket.speedY=0;
-    }    
-});   
-document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 38) {
-        event.preventDefault();
-        rightRacket.speedY=-2;
-    }  
-}); 
-document.addEventListener('keyup', function(event) {
-    if(event.keyCode == 38) {
-        event.preventDefault();
-        rightRacket.speedY=0;
-    }    
-});
+function start() {
+        ball.speedX = 2;
+        ball.speedY = 1;
+}
 
 tick(); 
 
@@ -135,6 +129,40 @@ function tick() {
     if (rightRacket.posY+rightRacket.height>areaH.height) {
         rightRacket.speedY=0;
         rightRacket.posY=areaH.height-rightRacket.height;
+    }
+    
+    ball.posX+=ball.speedX;
+    // ударился ли мячь об правую ракетку
+    if (ball.posX + ball.width >= areaH.width - rightRacket.width && ball.posY > rightRacket.posY && ball.posY < rightRacket.posY + rightRacket.height) {
+        ball.speedX=-ball.speedX;
+    }
+    // вылетел ли мяч правее стены?
+    if ( ball.posX+ball.width>areaH.width ) {
+        ball.speedX=0;
+        ball.speedY=0;
+        ball.posX=areaH.width-ball.width;
+    }
+    // ударился ли мячь об левую ракетку
+    if (ball.posY>=leftRacket.posY && ball.posY<=leftRacket.posY+leftRacket.height-ball.radius && ball.posX<=leftRacket.width ) {
+        ball.speedX=-ball.speedX;
+    }
+    // вылетел ли мяч левее стены?
+    if ( ball.posX<0 ) {
+        ball.speedX=0;
+        ball.speedY=0;
+        ball.posX=0;
+    }
+
+    ball.posY+=ball.speedY;
+    // вылетел ли мяч ниже пола?
+    if ( ball.posY+ball.height>areaH.height ) {
+        ball.speedY=-ball.speedY;
+        ball.posY=areaH.height-ball.height;
+    }
+    // вылетел ли мяч выше потолка?
+    if ( ball.posY<0 ) {
+        ball.speedY=-ball.speedY;
+        ball.posY=0;
     }
     
     leftRacket.update();
