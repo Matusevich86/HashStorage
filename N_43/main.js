@@ -5,7 +5,7 @@ const fieldHeight = 245;
 const rocketWidth = 7;
 const rocketHeight = 73;
 const ballWidth = 23;
-var gameState = 1;
+var gameState = 1; //состояние игры, где 1 - игра загружена, 2 - игра начата(кнопка старт не активна), 3 - забит гол(ракетки не активны)
 
 var gameField = document.getElementById('gameField');
 gameField.style.width = fieldWidth + 'px';
@@ -108,6 +108,8 @@ document.addEventListener('keyup', function(event) {
     }
 });
 
+requestAnimationFrame(tick);
+
 function start() {
     if(gameState == 2) {
         event.preventDefault();
@@ -119,7 +121,6 @@ function start() {
         ball.speedY = 1;
         gameState = 2;
     }   
-        requestAnimationFrame(tick);
 } 
 
 function tick() { 
@@ -157,7 +158,10 @@ function tick() {
         ball.speedY=0;
         ball.posX=areaH.width-ball.width;
         gameState=3;
-        rightRacket.speedY=0;
+        function changeScoreLeft() {
+            var block1Elem=document.getElementById('leftScore');
+            block1Elem.innerHTML= ++block1Elem.innerHTML;
+        }changeScoreLeft();
     }
     // ударился ли мячь об левую ракетку
     if (ball.posY>=leftRacket.posY && ball.posY<=leftRacket.posY+leftRacket.height-ball.radius && ball.posX<=leftRacket.width ) {
@@ -169,7 +173,10 @@ function tick() {
         ball.speedY=0;
         ball.posX=0;
         gameState=3;
-        leftRacket.speedY=0;
+        function changeScoreRight() {
+            var block2Elem=document.getElementById('rightScore');
+            block2Elem.innerHTML= ++block2Elem.innerHTML;
+        }changeScoreRight();
     }
 
     ball.posY+=ball.speedY;
