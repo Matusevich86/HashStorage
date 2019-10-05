@@ -185,11 +185,11 @@ function tick() {
         }changeScoreLeft();
     }
     // ударился ли мячь об левую ракетку
-    if (ball.posY>=leftRacket.posY && ball.posY<=leftRacket.posY+leftRacket.height-ball.radius && ball.posX<=leftRacket.width ) {
+    if (ball.posY>=leftRacket.posY && ball.posY<=leftRacket.posY+leftRacket.height && ball.posX-ball.radius<=leftRacket.width ) {
         ball.speedX=-ball.speedX;
     }
     // вылетел ли мяч левее стены?
-    if ( ball.posX<leftRacket.width/2 ) {
+    if ( ball.posX-ball.radius<0 ) {
         ball.speedX=0;
         ball.speedY=0;
         ball.posX=ball.radius;
@@ -207,7 +207,7 @@ function tick() {
         ball.posY=areaH.height-ball.radius;
     }
     // вылетел ли мяч выше потолка?
-    if ( ball.posY<0 ) {
+    if ( ball.posY-ball.radius<0 ) {
         ball.speedY=-ball.speedY;
         ball.posY=ball.radius;
     }
