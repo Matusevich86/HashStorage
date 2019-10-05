@@ -7,16 +7,7 @@ const rocketHeight = 73;
 const ballWidth = 23;
 var gameState = 1; //состояние игры, где 1 - игра загружена, 2 - игра начата(кнопка старт не активна), 3 - забит гол(ракетки не активны)
 
-var rocketLeftElem=document.createElementNS("http://www.w3.org/2000/svg",'line');//рисуем левую рокетку
-    rocketLeftElem.setAttribute("stroke","green");
-
-var rocketRightElem=document.createElementNS("http://www.w3.org/2000/svg",'line');//рисуем правую рокетку
-        rocketRightElem.setAttribute("stroke","blue");
-
-var ballElem=document.createElementNS("http://www.w3.org/2000/svg",'circle');//рисуем мячик
-        ballElem.setAttribute("fill","red");
-
-var gameArea = document.createElementNS("http://www.w3.org/2000/svg",'rect');
+var gameArea = document.createElementNS("http://www.w3.org/2000/svg",'rect');//рисуем поле
     gameArea.setAttribute("stroke","black");
     gameArea.setAttribute("fill","yellow");
     gameArea.setAttribute("x1","0");
@@ -25,6 +16,23 @@ var gameArea = document.createElementNS("http://www.w3.org/2000/svg",'rect');
     gameArea.setAttribute("height",fieldHeight);
     gameArea.setAttribute("id",'gameArea');
     gameField.appendChild(gameArea);
+
+var rocketLeftElem=document.createElementNS("http://www.w3.org/2000/svg",'line');//рисуем левую рокетку
+    rocketLeftElem.setAttribute("stroke","green");
+    rocketLeftElem.setAttribute("stroke-width",rocketWidth);
+    rocketLeftElem.setAttribute("id",'rocketLeft');
+    gameField.appendChild(rocketLeftElem);
+
+var rocketRightElem=document.createElementNS("http://www.w3.org/2000/svg",'line');//рисуем правую рокетку
+    rocketRightElem.setAttribute("stroke","blue");
+    rocketRightElem.setAttribute("stroke-width",rocketWidth);
+    rocketRightElem.setAttribute("id",'rocketRight');
+    gameField.appendChild(rocketRightElem);
+
+var ballElem=document.createElementNS("http://www.w3.org/2000/svg",'circle');//рисуем мячик
+    ballElem.setAttribute("fill","red");
+    ballElem.setAttribute("id","ball");
+    gameField.appendChild(ballElem);
 
 var leftRacket={                //позиционирум левую рокетку
     posX : 0,
@@ -37,11 +45,7 @@ var leftRacket={                //позиционирум левую рокет
         rocketLeftElem.setAttribute("x1",this.posX + rocketWidth/2);
         rocketLeftElem.setAttribute("y1",this.posY);
         rocketLeftElem.setAttribute("x2",this.posX + rocketWidth/2);
-        rocketLeftElem.setAttribute("y2",this.posY + rocketHeight);
-        rocketLeftElem.setAttribute("stroke-width",rocketWidth);
-        rocketLeftElem.setAttribute("id",'rocketLeft');
-        rocketLeftElem.setAttribute('transform', 'translate(0 '+ this.speedY +')');
-        gameField.appendChild(rocketLeftElem);
+        rocketLeftElem.setAttribute("y2",this.posY + rocketHeight);   
     }
 }
 var rightRacket={                    //позиционирум правую рокетку
@@ -52,15 +56,10 @@ var rightRacket={                    //позиционирум правую р�
     height: rocketHeight,
 
     update : function() {
-        
         rocketRightElem.setAttribute("x1",this.posX + rocketWidth/2);
         rocketRightElem.setAttribute("y1",this.posY);
         rocketRightElem.setAttribute("x2",this.posX + rocketWidth/2);
         rocketRightElem.setAttribute("y2",this.posY + rocketHeight);
-        rocketRightElem.setAttribute("stroke-width",rocketWidth);
-        rocketRightElem.setAttribute("id",'rocketRight');
-        rocketRightElem.setAttribute('transform', 'translate(0 '+ this.speedY +')');
-        gameField.appendChild(rocketRightElem);
     }
 }
 var ball={                            //позиционирум мячик
@@ -74,9 +73,6 @@ var ball={                            //позиционирум мячик
         ballElem.setAttribute("cx", this.posX);
         ballElem.setAttribute("cy", this.posY);
         ballElem.setAttribute("r", this.radius);
-        ballElem.setAttribute("id","ball");
-        gameField.appendChild(ballElem);
-        ballElem.setAttribute('transform', 'translate('+ this.speedX +', '+ this.speedY +')');
     }
 }
 var areaH={
