@@ -6,3 +6,10 @@
 .startGame {
     margin-bottom: 10px;
 }
+.score {
+    position: absolute;
+    left: 190px;
+    font-size: 26px;
+    top: 15px;
+    font-weight: bold;
+}

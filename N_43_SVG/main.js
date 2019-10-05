@@ -7,6 +7,15 @@ const rocketHeight = 73;
 const ballWidth = 23;
 var gameState = 1; //состояние игры, где 1 - игра загружена, 2 - игра начата(кнопка старт не активна), 3 - забит гол(ракетки не активны)
 
+var rocketLeftElem=document.createElementNS("http://www.w3.org/2000/svg",'line');//рисуем левую рокетку
+    rocketLeftElem.setAttribute("stroke","green");
+
+var rocketRightElem=document.createElementNS("http://www.w3.org/2000/svg",'line');//рисуем правую рокетку
+        rocketRightElem.setAttribute("stroke","blue");
+
+var ballElem=document.createElementNS("http://www.w3.org/2000/svg",'circle');//рисуем мячик
+        ballElem.setAttribute("fill","red");
+
 var gameArea = document.createElementNS("http://www.w3.org/2000/svg",'rect');
     gameArea.setAttribute("stroke","black");
     gameArea.setAttribute("fill","yellow");
@@ -17,7 +26,7 @@ var gameArea = document.createElementNS("http://www.w3.org/2000/svg",'rect');
     gameArea.setAttribute("id",'gameArea');
     gameField.appendChild(gameArea);
 
-var leftRacket={
+var leftRacket={                //позиционирум левую рокетку
     posX : 0,
     posY : 20,
     speedY : 0,
@@ -25,8 +34,6 @@ var leftRacket={
     height: rocketHeight,
 
     update : function() {
-        var rocketLeftElem=document.createElementNS("http://www.w3.org/2000/svg",'line');
-        rocketLeftElem.setAttribute("stroke","green");
         rocketLeftElem.setAttribute("x1",this.posX + rocketWidth/2);
         rocketLeftElem.setAttribute("y1",this.posY);
         rocketLeftElem.setAttribute("x2",this.posX + rocketWidth/2);
@@ -37,7 +44,7 @@ var leftRacket={
         gameField.appendChild(rocketLeftElem);
     }
 }
-var rightRacket={
+var rightRacket={                    //позиционирум правую рокетку
     posX : fieldWidth - rocketWidth,
     posY : 50,
     speedY : 0,
@@ -45,8 +52,7 @@ var rightRacket={
     height: rocketHeight,
 
     update : function() {
-        var rocketRightElem=document.createElementNS("http://www.w3.org/2000/svg",'line');
-        rocketRightElem.setAttribute("stroke","blue");
+        
         rocketRightElem.setAttribute("x1",this.posX + rocketWidth/2);
         rocketRightElem.setAttribute("y1",this.posY);
         rocketRightElem.setAttribute("x2",this.posX + rocketWidth/2);
@@ -57,7 +63,7 @@ var rightRacket={
         gameField.appendChild(rocketRightElem);
     }
 }
-var ball={
+var ball={                            //позиционирум мячик
     posX : fieldWidth/2,
     posY : fieldHeight/2,
     speedX : 0,
@@ -65,8 +71,6 @@ var ball={
     radius: ballWidth/2,
 
     update : function() {
-        var ballElem=document.createElementNS("http://www.w3.org/2000/svg",'circle');
-        ballElem.setAttribute("fill","red");
         ballElem.setAttribute("cx", this.posX);
         ballElem.setAttribute("cy", this.posY);
         ballElem.setAttribute("r", this.radius);
@@ -132,11 +136,10 @@ function start() {
         event.preventDefault();
     }
     if(gameState == 1 || gameState == 3) {
-        var ballElem = document.getElementById('ball');
-        ballElem.setAttribute("cx", ball.posX);
-        ballElem.setAttribute("cy", ball.posY);
-        ball.speedX = 3;
-        ball.speedY = 2;
+        ball.posX = fieldWidth/2;
+        ball.posY = fieldHeight/2;
+        ball.speedX = 2;
+        ball.speedY = 1;
         gameState = 2;
     }   
 } 
@@ -167,14 +170,14 @@ function tick() {
     
     ball.posX+=ball.speedX;
     // ударился ли мячь об правую ракетку
-    if (ball.posX + ball.width >= areaH.width - rightRacket.width && ball.posY > rightRacket.posY && ball.posY < rightRacket.posY + rightRacket.height) {
+    if (ball.posX + ball.radius >= areaH.width - rightRacket.width && ball.posY > rightRacket.posY && ball.posY < rightRacket.posY + rightRacket.height) {
         ball.speedX=-ball.speedX;
     }
     // вылетел ли мяч правее стены?
-    if (ball.posX+ball.width>areaH.width) {
+    if (ball.posX+ball.radius>areaH.width) {
         ball.speedX=0;
         ball.speedY=0;
-        ball.posX=areaH.width-ball.width;
+        ball.posX=areaH.width-ball.radius;
         gameState=3;
         function changeScoreLeft() {
             var block1Elem=document.getElementById('leftScore');
@@ -186,10 +189,10 @@ function tick() {
         ball.speedX=-ball.speedX;
     }
     // вылетел ли мяч левее стены?
-    if ( ball.posX<0 ) {
+    if ( ball.posX<leftRacket.width/2 ) {
         ball.speedX=0;
         ball.speedY=0;
-        ball.posX=0;
+        ball.posX=ball.radius;
         gameState=3;
         function changeScoreRight() {
             var block2Elem=document.getElementById('rightScore');
@@ -199,14 +202,14 @@ function tick() {
 
     ball.posY+=ball.speedY;
     // вылетел ли мяч ниже пола?
-    if ( ball.posY+ball.height>areaH.height ) {
+    if ( ball.posY+ball.radius>areaH.height ) {
         ball.speedY=-ball.speedY;
-        ball.posY=areaH.height-ball.height;
+        ball.posY=areaH.height-ball.radius;
     }
     // вылетел ли мяч выше потолка?
     if ( ball.posY<0 ) {
         ball.speedY=-ball.speedY;
-        ball.posY=0;
+        ball.posY=ball.radius;
     }
     
     leftRacket.update();
