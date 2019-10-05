@@ -32,7 +32,7 @@ var leftRacket={
         rocketLeftElem.setAttribute("x2",this.posX + rocketWidth/2);
         rocketLeftElem.setAttribute("y2",this.posY + rocketHeight);
         rocketLeftElem.setAttribute("stroke-width",rocketWidth);
-        rocketLeftElem.setAttribute("id",'rocketLeftElem');
+        rocketLeftElem.setAttribute("id",'rocketLeft');
         rocketLeftElem.setAttribute('transform', 'translate(0 '+ this.speedY +')');
         gameField.appendChild(rocketLeftElem);
     }
@@ -52,7 +52,7 @@ var rightRacket={
         rocketRightElem.setAttribute("x2",this.posX + rocketWidth/2);
         rocketRightElem.setAttribute("y2",this.posY + rocketHeight);
         rocketRightElem.setAttribute("stroke-width",rocketWidth);
-        rocketRightElem.setAttribute("id",'rocketRightElem');
+        rocketRightElem.setAttribute("id",'rocketRight');
         rocketRightElem.setAttribute('transform', 'translate(0 '+ this.speedY +')');
         gameField.appendChild(rocketRightElem);
     }
@@ -70,7 +70,7 @@ var ball={
         ballElem.setAttribute("cx", this.posX);
         ballElem.setAttribute("cy", this.posY);
         ballElem.setAttribute("r", this.radius);
-        ballElem.setAttribute("id","ballElem");
+        ballElem.setAttribute("id","ball");
         gameField.appendChild(ballElem);
         ballElem.setAttribute('transform', 'translate('+ this.speedX +', '+ this.speedY +')');
     }
@@ -132,9 +132,9 @@ function start() {
         event.preventDefault();
     }
     if(gameState == 1 || gameState == 3) {
-        var ballElem = document.getElementById('ballElem');
-        ballElem.setAttribute("cx", this.posX);
-        ballElem.setAttribute("cy", this.posY);
+        var ballElem = document.getElementById('ball');
+        ballElem.setAttribute("cx", ball.posX);
+        ballElem.setAttribute("cy", ball.posY);
         ball.speedX = 3;
         ball.speedY = 2;
         gameState = 2;
@@ -142,9 +142,9 @@ function start() {
 } 
 
 function tick() { 
-
+    
     leftRacket.posY+=leftRacket.speedY;
-
+    
     if (leftRacket.posY < 0) {
         leftRacket.speedY=0;
         leftRacket.posY=0;
